@@ -24,7 +24,7 @@ struct ContentView: View {
     
     var body: some View {
         ScrollRefreshView($isRefreshing, onRefresh: onRefresh, onScroll: onScroll) {
-            LazyVStack {
+            VStack {
                 ForEach(0..<100, id: \.self) { obj in
                     HStack {
                         Text("\(obj)")
