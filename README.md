@@ -4,6 +4,8 @@ SwiftUI ScrollView with Pull to Refresh.
 
 Use `UIViewControllerRepresentable` wrap UIKit's `UIScrollView` for SwiftUI. Contains Pull to Refresh feature and `scrollViewDidScroll` Event.
 
+One regretful thing, the `LazyVStack` doesn't work in this wrap View. It's not lazy, almost like `VStack`. :-(
+
 ```
 struct ContentView: View {
     
