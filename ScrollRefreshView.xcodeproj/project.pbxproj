@@ -11,6 +11,7 @@
 		93EBD9E82521F73400F505C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EBD9E72521F73400F505C6 /* ContentView.swift */; };
 		93EBD9EA2521F73600F505C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93EBD9E92521F73600F505C6 /* Assets.xcassets */; };
 		93EBD9ED2521F73600F505C6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93EBD9EC2521F73600F505C6 /* Preview Assets.xcassets */; };
+		93EBD9F62521F75100F505C6 /* ScrollRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EBD9F52521F75100F505C6 /* ScrollRefreshView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		93EBD9E92521F73600F505C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93EBD9EC2521F73600F505C6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		93EBD9EE2521F73600F505C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93EBD9F52521F75100F505C6 /* ScrollRefreshView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollRefreshView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				93EBD9E92521F73600F505C6 /* Assets.xcassets */,
 				93EBD9EE2521F73600F505C6 /* Info.plist */,
 				93EBD9EB2521F73600F505C6 /* Preview Content */,
+				93EBD9F52521F75100F505C6 /* ScrollRefreshView.swift */,
 			);
 			path = ScrollRefreshView;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93EBD9E82521F73400F505C6 /* ContentView.swift in Sources */,
+				93EBD9F62521F75100F505C6 /* ScrollRefreshView.swift in Sources */,
 				93EBD9E62521F73400F505C6 /* ScrollRefreshViewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
