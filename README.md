@@ -38,3 +38,6 @@ struct ContentView: View {
 }
 
 ```
+
+
+![ScrollRefreshView](https://raw.githubusercontent.com/cattla/ScrollRefreshView/main/ScrollRefreshView/demo.gif)
