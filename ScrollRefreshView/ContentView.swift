@@ -24,10 +24,10 @@ struct ContentView: View {
     
     var body: some View {
         ScrollRefreshView($isRefreshing, onRefresh: onRefresh, onScroll: onScroll) {
-            LazyVStack {
-                ForEach(0..<100, id: \.self) { obj in
+            VStack {
+                ForEach(0..<100, id: \.self) { i in
                     HStack {
-                        Text("\(obj)")
+                        Text("\(i)")
                         Spacer()
                     }
                 }
