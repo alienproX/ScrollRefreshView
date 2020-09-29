@@ -20,9 +20,6 @@ struct ScrollRefreshView<Content: View>: UIViewControllerRepresentable {
         self.content = content
         self.onRefresh = onRefresh
         self.onScroll = onScroll
-        if self._isRefreshing.wrappedValue {
-            self.onRefresh()
-        }
     }
 
     func makeUIViewController(context: Context) -> ScrollRefreshViewController {
@@ -33,6 +30,13 @@ struct ScrollRefreshView<Content: View>: UIViewControllerRepresentable {
             self.isRefreshing = true
         }
         vc.onScroll = self.onScroll
+        vc.onViewDidLoad = {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                if self._isRefreshing.wrappedValue {
+                    self.onRefresh()
+                }
+            }
+        }
         return vc
     }
 
@@ -51,6 +55,7 @@ struct ScrollRefreshView<Content: View>: UIViewControllerRepresentable {
 class ScrollRefreshViewController: UIViewController, UIScrollViewDelegate {
 
     var onRefresh: () -> Void = {}
+    var onViewDidLoad: () -> Void = {}
     var startRefreshing: () -> Void = {}
     var onScroll: (CGSize, CGPoint) -> Void = {_,_ in }
     var hostingController: UIHostingController<AnyView> = UIHostingController(rootView: AnyView(EmptyView()))
@@ -81,6 +86,7 @@ class ScrollRefreshViewController: UIViewController, UIScrollViewDelegate {
         self.scrollView.addSubview(self.hostingController.view)
         self.pinEdges(of: self.hostingController.view, to: self.scrollView)
         self.hostingController.didMove(toParent: self)
+        self.onViewDidLoad()
 
     }
     
