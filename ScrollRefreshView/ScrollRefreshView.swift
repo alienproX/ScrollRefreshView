@@ -11,15 +11,17 @@ struct ScrollRefreshView<Content: View>: UIViewControllerRepresentable {
 
     var content: () -> Content
     let onRefresh: () -> Void
-    let onScroll: (CGSize, CGPoint) -> Void
+    let onScroll: (CGSize, CGRect, CGPoint) -> Void
+    let onScrollWillEnd: () -> Void
     
     @Binding var isRefreshing: Bool
 
-    init(_ isRefreshing: Binding<Bool>, onRefresh: @escaping () -> Void = {}, onScroll: @escaping (CGSize, CGPoint) -> Void = {_,_ in }, @ViewBuilder content: @escaping () -> Content) {
+    init(_ isRefreshing: Binding<Bool>, onRefresh: @escaping () -> Void = {}, onScroll: @escaping (CGSize, CGRect, CGPoint) -> Void = {_,_,_  in }, onScrollWillEnd: @escaping () -> Void = {}, @ViewBuilder content: @escaping () -> Content) {
         self._isRefreshing = isRefreshing
         self.content = content
         self.onRefresh = onRefresh
         self.onScroll = onScroll
+        self.onScrollWillEnd = onScrollWillEnd
     }
 
     func makeUIViewController(context: Context) -> ScrollRefreshViewController {
@@ -30,6 +32,7 @@ struct ScrollRefreshView<Content: View>: UIViewControllerRepresentable {
             self.isRefreshing = true
         }
         vc.onScroll = self.onScroll
+        vc.onScrollWillEnd = self.onScrollWillEnd
         vc.onViewDidLoad = {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if self._isRefreshing.wrappedValue {
@@ -57,14 +60,14 @@ class ScrollRefreshViewController: UIViewController, UIScrollViewDelegate {
     var onRefresh: () -> Void = {}
     var onViewDidLoad: () -> Void = {}
     var startRefreshing: () -> Void = {}
-    var onScroll: (CGSize, CGPoint) -> Void = {_,_ in }
+    var onScroll: (CGSize, CGRect, CGPoint) -> Void = {_,_,_  in }
+    var onScrollWillEnd: () -> Void = {}
     var hostingController: UIHostingController<AnyView> = UIHostingController(rootView: AnyView(EmptyView()))
     
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
 
         let refreshControl = UIRefreshControl()
-        //refreshControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
         refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
         view.refreshControl = refreshControl
         
@@ -91,7 +94,12 @@ class ScrollRefreshViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.onScroll(scrollView.contentSize,  scrollView.contentOffset)
+        self.onScroll(scrollView.contentSize, scrollView.frame,  scrollView.contentOffset)
+        
+        if scrollView.contentOffset.y > 0 && (scrollView.contentSize.height - scrollView.frame.height - scrollView.contentOffset.y < 100) {
+            self.onScrollWillEnd()
+        }
+   
     }
 
     func pinEdges(of viewA: UIView, to viewB: UIView) {
