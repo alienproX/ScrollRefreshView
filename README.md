@@ -17,13 +17,18 @@ struct ContentView: View {
         }
     }
     
-    func onScroll(size: CGSize, offset: CGPoint) -> Void {
+    func onScroll(size: CGSize, frame: CGRect, offset: CGPoint) -> Void {
         print("size", size)
+        print("frame", frame)
         print("offset", offset)
     }
     
+    func onScrollWillEnd() -> Void {
+        print("should load more here")
+    }
+    
     var body: some View {
-        ScrollRefreshView($isRefreshing, onRefresh: onRefresh, onScroll: onScroll) {
+        ScrollRefreshView($isRefreshing, onRefresh: onRefresh, onScroll: onScroll, onScrollWillEnd: onScrollWillEnd) {
             VStack {
                 ForEach(0..<100, id: \.self) { obj in
                     HStack {
