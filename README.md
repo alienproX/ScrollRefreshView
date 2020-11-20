@@ -6,6 +6,8 @@ Use `UIViewControllerRepresentable` wrap UIKit's `UIScrollView` for SwiftUI. Con
 
 One regretful thing, the `LazyVStack` doesn't work in this wrap View. It's not lazy, almost like `VStack`. :-(
 
+### Nov, 2020 Updated: the best solution -> https://github.com/cattla/ScrollViewWithRefresh . 
+
 ```
 struct ContentView: View {
     
